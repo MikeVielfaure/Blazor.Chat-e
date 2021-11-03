@@ -1,0 +1,38 @@
+@page "/acceuilchat"
+
+@inject NavigationManager NavManager
+@inject Guard Guard 
+@using Chat_e.models
+@inject MyUser MyUser
+
+<h3>Accueil_chat</h3>
+
+<div class="container">
+  <div class="col-md-12" style="position: relative !important;">
+    <div style="float: left; width:20%">
+      <Chat_e.components.list_conecte_component.List_conecte/>
+    </div>
+    <Chat_e.components.chat_component.Chat />
+  </div>
+  </div>
+
+  @code {
+
+    protected override async Task OnInitializedAsync()
+    {
+      //Guard.verifAuth();
+
+      if (MyUser.user != null)
+      {
+
+      }
+      else
+      {
+        NavManager.NavigateTo("/connexion");
+      }
+
+
+    }
+
+
+  }

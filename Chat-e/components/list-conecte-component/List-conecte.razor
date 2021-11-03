@@ -1,0 +1,62 @@
+@using Chat_e.Data
+@inject UserService UserService
+
+@using Chat_e.models
+@using Chat_e.Service
+@inject InitComponent InitComponent
+
+
+
+<div class="card-list-ami">
+  <div class="title-card">
+    <a class="title">
+      Connecté(s) (@lesUser.Count())
+    </a>
+  </div>
+  <div>
+    <CascadingValue Name="lesUser" Value=@lesUserBis>
+      <Chat_e.components.autocomplete_component.Autocomplete />
+      </CascadingValue>
+
+  </div>
+  <div style="min-height:400px; max-height:400px !important; overflow-x:auto; overflow-y:auto">
+    @for (int k = 0; k < lesUser.Count(); k++)
+    {
+      <div type="button" class="ligne-ami">
+        <img class="img-ami" src="images/profil.jpg">
+        <a class="nom-ami">@lesUser[k].id</a>
+      </div>
+    }
+  </div>
+
+</div>
+
+
+
+
+@code {
+    List<User> lesUser = new List<User>();
+
+    List<User> lesUserBis = new List<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+      InitComponent.SetConnecte(this);
+      //lesUser = await UserService.GetAllUser();
+    }
+
+    public async Task ChargeListConnecte()
+    {
+      //InitComponent.SetConnecte(this);
+      lesUser = await UserService.GetAllUser();
+      lesUserBis = lesUser;
+      this.StateHasChanged();
+    }
+
+    public async Task changeLesUser(List<User> nouveauxUser)
+    {
+      lesUser = new List<User>();
+      lesUser = nouveauxUser;
+      this.StateHasChanged();
+    }
+}

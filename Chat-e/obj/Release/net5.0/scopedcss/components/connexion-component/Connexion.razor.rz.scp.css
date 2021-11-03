@@ -1,0 +1,99 @@
+#register[b-mb6i1ia9qo] {
+  border: 0;
+}
+
+.ta-c[b-mb6i1ia9qo] {
+  text-align: center;
+}
+
+.w-100[b-mb6i1ia9qo] {
+  width: 100%;
+}
+
+.w-48[b-mb6i1ia9qo] {
+  width: 48%;
+}
+
+.p-15[b-mb6i1ia9qo] {
+  padding: 15px;
+}
+
+.f-l[b-mb6i1ia9qo] {
+  float: left;
+}
+
+.f-r[b-mb6i1ia9qo] {
+  float: right;
+}
+
+
+.fs-i[b-mb6i1ia9qo] {
+  font-style: italic;
+}
+
+img[b-mb6i1ia9qo] {
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+.nbinput[b-mb6i1ia9qo] {
+  /* Firefox */
+  -moz-appearance: textfield;
+  /* Chrome */
+  &::-webkit-inner-spin-button
+
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Opéra*/
+&[b-mb6i1ia9qo]::-o-inner-spin-button {
+  -o-appearance: none;
+  margin: 0;
+}
+
+}
+
+input:focus[b-mb6i1ia9qo] {
+  border-color: black;
+  box-shadow: 0 0 5px rgba(98, 101, 228, 1);
+}
+
+
+.tar[b-mb6i1ia9qo] {
+  text-align: right;
+}
+
+
+
+.overlay[b-mb6i1ia9qo] {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0,0,0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+}
+
+
+.popup[b-mb6i1ia9qo] {
+  margin: 10% auto;
+  width: 70%;
+  background-color: white;
+  padding: 1em;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.btn-annuler[b-mb6i1ia9qo] {
+  color: #fff;
+  background-color: #fa2f2f;
+  border-color: #e64949;
+}
+
+

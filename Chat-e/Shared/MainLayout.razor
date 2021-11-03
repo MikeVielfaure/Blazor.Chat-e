@@ -1,0 +1,55 @@
+@inherits LayoutComponentBase
+@using Chat_e.Service;
+@inject AppState AppState
+@inject MyUser MyUser
+
+@implements IDisposable
+
+<div>
+  <Chat_e.components.nav_menu_component.Nav_menu />
+</div>
+
+<CascadingValue Name="partage" Value=@partage>
+  <CascadingValue Name="element" Value=@this>
+    <div class="container">
+      @Body
+    </div>
+  </CascadingValue>
+</CascadingValue>
+
+
+
+
+@code{
+  Chat_e.components.nav_menu_component.Nav_menu nav = new components.nav_menu_component.Nav_menu();
+
+  private bool partage = false;
+
+
+
+  protected override void OnInitialized()
+  {
+      MyUser.SetMainLayout(this);
+
+    AppState.OnChange += StateHasChanged;
+  }
+
+  public void Dispose()
+  {
+
+    AppState.OnChange -= StateHasChanged;
+  }
+
+  public void RefreshState()
+  {
+
+    //this.StateHasChanged();
+    refreshNav();
+  }
+
+  public void refreshNav()
+  {
+    AppState.GetNav_Menu().RefreshState();
+  }
+}
+

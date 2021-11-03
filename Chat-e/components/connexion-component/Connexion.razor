@@ -1,0 +1,129 @@
+@page "/connexion"
+
+@inject AppState AppState
+
+@inject MyUser MyUser 
+
+@using Chat_e.Data
+@using Chat_e.models
+@inject NavigationManager NavManager
+
+
+@inject UserService UserService
+
+@inherits OwningComponentBase<UserService>
+
+
+<div class="col-md-6 offset-md-3">
+  <EditForm Model="@validateUser" OnValidSubmit=@submitUser>
+    <DataAnnotationsValidator />
+    <div class="card">
+      <div id="legend" class="card-header" style="text-align: center;">
+        <legend class=""> Connexion </legend>
+      </div>
+      <div class="list-group list-group-flush p-15">
+        <div class="list-group-item" id="register">
+          <div class="col-md-12">
+            <div class=form-group>
+              <div class="col-md-12">
+                <label for="mail">Pseudo* :</label>
+              </div>
+              <div class="col-md-12">
+                <input class="w-100 form-control" type="text" placeholder="" @bind-value="validateUser.id" @onclick="inputClick">
+                <ValidationMessage For="() => validateUser.id" />
+                @if (displayMessage)
+                {
+                  <div class="validation-message">Pseudo déjà utilisé</div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list-group-item" id="register">
+          <p style="margin-bottom: 0px !important;" class="fs-i">* champs obligatoires</p>
+        </div>
+        <div class="list-group-item" id="register" style="text-align: center;">
+          <button type="submit" class="btn btn-success">
+            Valider
+          </button>
+        </div>
+      </div>
+    </div>
+  </EditForm>
+</div>
+
+@code {
+
+    [CascadingParameter(Name = "partage")]
+    private bool partage { get; set; }
+
+    [CascadingParameter(Name = "element")]
+    public MainLayout _Parent { get; set; }
+
+    private Validate_Forms.ValidateUser validateUser = new Validate_Forms.ValidateUser();
+    private User user = new User();
+    private bool displayMessage = false;
+    //UserService userService;
+
+
+    //private string connexion = "Server=mysql-chat-e.alwaysdata.net;port=3306;database=chat-e_all;user=chat-e;password=Ra...dels0506;";
+    //services.AddDbContext<UserContext>(options => options.UseMySql(connexion, new MySqlServerVersion(new Version(10, 1, 40))));
+
+
+
+    private void changePartage()
+    {
+      partage = false;
+      AppState.selectedBool = true;
+
+      _Parent.RefreshState();
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+      
+    }
+
+
+    private async Task submitUser()
+    {
+      displayMessage = false;
+
+      user.id = validateUser.id;
+      string etat = await @Service.PostUser(user);
+      if (etat == "ok")
+      {
+        displayMessage = false;
+        AppState.selectedBool = true;
+        MyUser.user = user;
+        _Parent.RefreshState();
+        NavManager.NavigateTo("/acceuilchat");
+      }
+      else
+      {
+        displayMessage = true;
+      }
+
+    }
+
+
+    private void inputClick()
+    {
+      displayMessage = false;
+
+
+    }
+
+
+
+
+    /**
+    private void submitUser(EditContext editContext)
+    {
+      bool formIsValid = editContext.Validate();
+    }*/
+
+
+}

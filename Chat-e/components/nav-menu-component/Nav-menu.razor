@@ -1,0 +1,110 @@
+@inject AppState AppState
+
+@inject MyUser MyUser
+
+@inject NavigationManager NavManager
+
+@using Chat_e.Data
+@inject UserService UserService 
+
+<div class="contain-nav">
+  <div class="contain-flow">
+    <div class="container">
+      <nav>
+        <div class="col-md-6 contain-img">
+          <img id="logo" />
+        </div>
+        <div class="col-md-6 nav-div">
+          <ul class="nav justify-content-end">
+            @if (!AppState.selectedBool)
+            {
+              <li class="nav-item nav-li">
+                <NavLink class="mppm" Match="NavLinkMatch.All" href="">
+                  Accueil
+                </NavLink>
+              </li>
+              <li class="nav-item nav-li">
+                <NavLink class="mppm" Match="NavLinkMatch.All" href="connexion">
+                  Connexion
+                </NavLink>
+              </li>
+            }
+            @if (AppState.selectedBool)
+            {
+              <li class="nav-item nav-li">
+                <NavLink class="mppm" Match="NavLinkMatch.All" href="/acceuilchat">
+                  Accueil
+                </NavLink>
+              </li>
+              <li class="nav-item nav-li">
+                <NavLink class="mppm" @onclick="@onClickDeco">
+                  Déconnexion
+                </NavLink>
+              </li>
+            }
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+<div style="height:100px">
+
+</div>
+
+
+@if (playOverlay)
+{
+  <div class="container">
+    <div id="overlay" class="overlay">
+      <div id="popup" class="popup" style="width:fit-content; text-align: center">
+          <div>
+            <h2 style="margin-top: 0px !important">
+              Voulez-vous vraiment quitter le Chat-e :
+            </h2>
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-success" @onclick="onClickPopValider" >Valider</button>
+            <a type="button" class="btn btn-annuler"  style="margin-left: 15px" @onclick="onClickPopAnnuler">annuler</a>
+          </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool playOverlay = false;
+  protected override async Task OnInitializedAsync()
+  {
+    AppState.setNav_Menu(this);
+  }
+
+  public void RefreshState()
+  {
+
+    this.StateHasChanged();
+  }
+
+  private void onClickDeco()
+  {
+    playOverlay = true;
+  }
+
+    private void onClickPopAnnuler()
+    {
+      playOverlay = false;
+    }
+
+    private async Task onClickPopValider()
+    {
+      await UserService.DeleteUser(MyUser.user.id);
+      MyUser.user = null;
+      AppState.selectedBool = false;
+      NavManager.NavigateTo("/");
+      playOverlay = false;
+
+    }
+
+    
+}

@@ -1,0 +1,30 @@
+.autoc[b-qs0y2e19nn] {
+  width: 100%;
+  position: relative;
+}
+
+.panneau[b-qs0y2e19nn] {
+  position: absolute;
+  background-color: white;
+  border: solid 1px #ced4da;
+  border-top: 0px;
+  width: 100%;
+}
+
+.champ[b-qs0y2e19nn] {
+  margin-left: 12px;
+}
+
+.glob-champ[b-qs0y2e19nn] {
+  width: 100%;
+}
+
+  .glob-champ:hover[b-qs0y2e19nn] {
+    background-color: lightblue;
+  }
+
+input:focus[b-qs0y2e19nn] {
+  border-color: #ced4da;
+  box-shadow: none;
+  background-color: #f5f6f7;
+}

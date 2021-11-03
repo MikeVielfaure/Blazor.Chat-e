@@ -1,0 +1,111 @@
+@using Chat_e.models
+@using Chat_e.Data
+@using Chat_e.components
+@using Chat_e.Service
+@inject InitComponent InitComponent
+@inject MyUser MyUser
+
+@inject MessageService MessageService
+
+
+
+
+
+
+
+<div class="col-md-12" style="position: relative !important;">
+  <div class="card-list-message" style="float:right; width:75%; position: relative">
+    <div class="title-card-message">
+      <a class="title-message">
+        Message(s) :
+      </a>
+    </div>
+    <div class="col-md-12" style=" height: 500px; border-bottom: solid 1px rgba(0, 0, 0, 0.125);position: relative; overflow-y: auto;
+            overflow-x: hidden;">
+      <div>
+        @laDate.ToString(System.Globalization.CultureInfo.InvariantCulture);
+      </div>
+      @for (int k = 0; k < lesMessages.Count(); k++)
+      {
+        <div>
+          <div>
+            @lesMessages[k].iduser
+          </div>
+          <div class=" @( lesMessages[k].iduser == MyUser.user.id ? "card-message-self" : "card-message")">
+            <div class="message">
+              @lesMessages[k].contenu
+            </div>
+          </div>
+          <div class="date-message">
+            @lesMessages[k].date.ToString(System.Globalization.CultureInfo.InvariantCulture);
+          </div>
+        </div>
+      }
+
+    </div>
+
+    <div style="padding: 10px ;">
+      <div class="col-md-10" style="float: left;">
+        <textarea class="form-control" style="width: 100%; margin-bottom: 10px; " rows="3" @bind="monMessage.LeMessage" @oninput="@oninput">
+        </textarea>
+      </div>
+      <div class="col-md-2" style="float: right; text-align: center; margin-top:24px  ">
+        <button class="btn btn-success" disabled=@monMessage.verifMessage @onclick=@onClickEnvoyer>
+          envoyer
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+@code {
+    Chat_e.components.list_conecte_component.List_conecte connecte = new list_conecte_component.List_conecte();
+    //laDate.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    MyMessage monMessage;
+    List<Messages> lesMessages = new List<Messages>();
+    private DateTime laDate = new DateTime();
+
+
+    private string ppp = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+      connecte = InitComponent.GetConnecte();
+      laDate = DateTime.Now;
+      monMessage = new MyMessage(this);
+      lesMessages = await MessageService.GetMessage(laDate);
+      await connecte.ChargeListConnecte();
+      //monMessage.SetMainLayout(MyUser.GetMainLayout());
+    }
+    public void RefreshState()
+    {
+
+      this.StateHasChanged();
+    }
+
+    public void oninput(ChangeEventArgs args)
+    {
+      monMessage.LeMessage = args.Value.ToString();
+    }
+
+    private async Task onClickEnvoyer()
+    {
+      Messages unMessage = new Messages();
+      unMessage.contenu = monMessage.LeMessage;
+      unMessage.date = laDate;
+      unMessage.iduser = MyUser.user.id;
+
+      await MessageService.PostMessage(unMessage);
+      lesMessages = await MessageService.GetMessage(laDate);
+
+      monMessage.LeMessage = "";
+    }
+
+
+
+
+
+}

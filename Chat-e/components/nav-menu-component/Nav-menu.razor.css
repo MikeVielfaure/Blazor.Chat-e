@@ -1,0 +1,106 @@
+
+
+
+li:hover {
+  background-color: #dadddb;
+}
+
+.contain-nav {
+  box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+  -webkit-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+  position: relative;
+}
+
+.contain-flow {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+  -webkit-box-shadow: 0px 0px 10px 4px rgba(131, 129, 129, 0.75);
+}
+
+.contain-img {
+  float: left;
+}
+
+.nav-div {
+  float: right;
+  height: 42px;
+  line-height: 42px;
+  padding-right : 0px !important;
+}
+
+.nav-li {
+  text-align: center;
+  height: fit-content;
+}
+
+.nav-li:hover {
+  text-decoration:none !important;
+}
+
+.nav-a {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.nav-a:hover {
+  text-decoration: none !important;
+  color: black !important;
+}
+
+
+
+::deep .mppm {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-decoration: none !important;
+  color: black !important;
+  display: block;
+  padding: 0px 1rem 0px 1rem;
+}
+
+
+
+::deep .active {
+  background-color: #dadddb;
+}
+
+.overlay {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0,0,0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+}
+
+
+.popup {
+  margin: 10% auto;
+  width: 70%;
+  background-color: white;
+  padding: 1em;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.btn-annuler {
+  color: white;
+  background-color: #fa2f2f;
+  border-color: #e64949;
+}
+
+
+
+
+
+

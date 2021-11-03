@@ -1,0 +1,108 @@
+@using Chat_e.Service
+@using chat_component
+@inject InitComponent InitComponent
+
+<div class="autoc">
+  <div></div>
+    <input autocomplete="chrome-off" type="text"
+           class="form-control" id="autocompleteF"
+           placeholder="First Name"
+          @bind="name"
+           @onclick="onClickInput"
+           @oninput="onInput"
+           @onblur ="onBlur"
+           @onfocus="onFocus"
+           >
+  @if (autoPlay)
+  {
+<div class="panneau" @onmouseover="onEnter" @onmouseout="onLeave">
+  @for (int k = 0; k < lesUser.Count(); k++)
+  {
+    int number = k;
+    <div class="glob-champ" type="button" >
+        <div class="champ" @onclick="@(() => onClickUser(number))">
+          @lesUser[k].id 
+        </div>
+      
+    </div>
+  }
+  </div>
+  }
+</div>
+
+@code {
+    [CascadingParameter(Name = "lesUser")]
+    private List<User> lesUser { get; set; }
+
+    [CascadingParameter(Name = "lesUser")]
+    private List<User> autoUser { get; set; }
+
+    Chat_e.components.list_conecte_component.List_conecte connecte = new list_conecte_component.List_conecte();
+
+    private int index;
+
+  private bool autoPlay = false;
+
+  private bool autoTouch = false;
+
+  private string name = "";
+
+  protected override async Task OnInitializedAsync()
+  {
+
+  }
+
+
+
+  private async Task onClickUser(int k)
+  {
+    //connecte = InitComponent.GetConnecte();
+    //List<User> bbb = new List<User>();
+    //bbb.Add(lesUser[k]);
+    //await connecte.changeLesUser(bbb);
+    name = lesUser[k].id;
+    autoPlay = false;
+
+  }
+
+  private void onClickInput()
+  {
+
+    autoPlay = true;
+  }
+
+  private void onInput(ChangeEventArgs args)
+  {
+    name= args.Value.ToString();
+    lesUser =new List<User>();
+    lesUser = autoUser.FindAll(e => e.id.Contains(name));
+    //List<string> test = new List<string>();
+    // test = autoUser.FindAll(e => e.Contains(name));
+    //test = autoUser.Where(e => e.Contains(name));
+    //autoUser.Clear();
+    //autoUser = test;
+  }
+
+  private void onBlur()
+  {
+    if (autoTouch == false)
+    {
+      autoPlay = false;
+    }
+  }
+
+  private void onFocus()
+  {
+    autoPlay = true;
+  }
+
+  private void onLeave()
+  {
+    autoTouch = false;
+  }
+
+  private void onEnter()
+  {
+    autoTouch = true;
+  }
+}

@@ -1,0 +1,30 @@
+.autoc {
+  width: 100%;
+  position: relative;
+}
+
+.panneau {
+  position: absolute;
+  background-color: white;
+  border: solid 1px #ced4da;
+  border-top: 0px;
+  width: 100%;
+}
+
+.champ {
+  margin-left: 12px;
+}
+
+.glob-champ {
+  width: 100%;
+}
+
+  .glob-champ:hover {
+    background-color: lightblue;
+  }
+
+input:focus {
+  border-color: #ced4da;
+  box-shadow: none;
+  background-color: #f5f6f7;
+}
